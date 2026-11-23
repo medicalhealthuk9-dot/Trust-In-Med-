@@ -1,0 +1,12 @@
+{
+  "name": "TRUST IN MED — Medical Academic Platform",
+  "short_name": "TRUST IN MED",
+  "description": "منصة TRUST IN MED لإدارة الجداول والملخصات والملفات الأكاديمية لكلية الطب البشري",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#ff7b8b",
+  "theme_color": "#0B3558",
+  "orientation": "any",
+  "lang": "ar",
+  "dir": "rtl"
+}

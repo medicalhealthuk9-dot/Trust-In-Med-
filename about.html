@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>حول تطبيق TRUST IN MED — المؤسس والمطور: محمد صادق منيف</title>
+  <meta name="theme-color" content="#6366F1" />
+  <style>
+    :root {
+      --indigo: #6366F1;
+      --indigo-dark: #4F46E5;
+      --indigo-light: #818CF8;
+      --indigo-soft: #EEF2FF;
+      --indigo-border: #C7D2FE;
+      --text-dark: #0F172A;
+      --text-muted: #475569;
+      --white: #FFFFFF;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Cairo', 'Segoe UI', Tahoma, Arial, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      color: var(--text-dark);
+      background:
+        radial-gradient(circle at 12% 10%, rgba(255, 255, 255, 0.34), transparent 38%),
+        radial-gradient(circle at 88% 16%, rgba(255, 228, 230, 0.42), transparent 42%),
+        linear-gradient(155deg, #F87171 0%, #FB7185 45%, #F43F5E 100%);
+      background-attachment: fixed;
+      line-height: 1.65;
+    }
+    a { text-decoration: none; color: inherit; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; }
+    code {
+      background: #F1F5F9;
+      color: #4338CA;
+      padding: 2px 6px;
+      border-radius: 6px;
+      font-family: monospace;
+      font-size: 0.9em;
+    }
+
+    /* TOP LIGHT INDIGO HEADER */
+    .top-header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background: linear-gradient(135deg, #6366F1 0%, #818CF8 100%);
+      color: #FFFFFF;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+      box-shadow: 0 4px 18px rgba(79, 70, 229, 0.25);
+    }
+    .header-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+    .logos-pair {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+    .logo-img {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #FFFFFF;
+      padding: 2px;
+      border: 2px solid rgba(255, 255, 255, 0.8);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.14);
+    }
+    .brand-title-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .brand-title {
+      font-size: 18px;
+      font-weight: 900;
+      letter-spacing: 0.2px;
+    }
+    .brand-pill {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    .brand-sub {
+      font-size: 12px;
+      color: #EEF2FF;
+      font-weight: 600;
+      margin-top: 2px;
+    }
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-hdr-ghost {
+      padding: 7px 14px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: #FFFFFF;
+      font-size: 12px;
+      font-weight: 700;
+      transition: background 0.2s;
+    }
+    .btn-hdr-ghost:hover { background: rgba(255, 255, 255, 0.28); }
+    .btn-hdr-white {
+      padding: 7px 14px;
+      border-radius: 12px;
+      background: #FFFFFF;
+      color: #4F46E5;
+      font-size: 12px;
+      font-weight: 800;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      transition: background 0.2s;
+    }
+    .btn-hdr-white:hover { background: #EEF2FF; }
+
+    /* MAIN CONTAINER */
+    .main-wrap {
+      flex: 1;
+      width: 100%;
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 20px 16px 32px;
+    }
+
+    /* LAYERED BACK BAR */
+    .layered-bar {
+      background: rgba(255, 255, 255, 0.96);
+      border: 1.5px solid var(--indigo-border);
+      border-radius: 16px;
+      padding: 10px 14px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
+    }
+    .layered-bar.hidden { display: none; }
+    .btn-back {
+      background: var(--indigo);
+      color: #FFFFFF;
+      padding: 7px 14px;
+      border-radius: 11px;
+      font-size: 12.5px;
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.2s;
+    }
+    .btn-back:hover { background: var(--indigo-dark); }
+    .crumb-trail {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .depth-badge {
+      font-size: 11px;
+      font-weight: 800;
+      padding: 4px 12px;
+      border-radius: 999px;
+      background: var(--indigo-soft);
+      color: var(--indigo-dark);
+      border: 1px solid var(--indigo-border);
+    }
+
+    /* ANIMATIONS */
+    @keyframes slideForward {
+      from { opacity: 0; transform: translateX(-24px) scale(0.99); }
+      to { opacity: 1; transform: translateX(0) scale(1); }
+    }
+    @keyframes slideBack {
+      from { opacity: 0; transform: translateX(24px) scale(0.99); }
+      to { opacity: 1; transform: translateX(0) scale(1); }
+    }
+    .enter-forward { animation: slideForward 0.28s cubic-bezier(0.22, 1, 0.36, 1) both; }
+    .enter-back { animation: slideBack 0.25s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+    /* HERO CARD */
+    .hero-card {
+      background: linear-gradient(135deg, #6366F1 0%, #818CF8 100%);
+      color: #FFFFFF;
+      border-radius: 24px;
+      padding: 28px;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      box-shadow: 0 14px 32px rgba(79, 70, 229, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+    .hero-text { flex: 1 1 420px; }
+    .hero-pill {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 800;
+      padding: 4px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      margin-bottom: 10px;
+    }
+    .hero-title {
+      font-size: 26px;
+      font-weight: 900;
+      line-height: 1.35;
+      margin-bottom: 10px;
+    }
+    .hero-desc {
+      font-size: 14px;
+      color: #EEF2FF;
+      line-height: 1.75;
+    }
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(115px, 1fr));
+      gap: 10px;
+      flex-shrink: 0;
+    }
+    .stat-box {
+      background: rgba(255, 255, 255, 0.16);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 16px;
+      padding: 12px 14px;
+      text-align: center;
+    }
+    .stat-num { font-size: 22px; font-weight: 900; }
+    .stat-lbl { font-size: 11.5px; color: #EEF2FF; font-weight: 700; }
+
+    /* SECTION HEADING */
+    .section-heading {
+      color: #FFFFFF;
+      font-size: 17px;
+      font-weight: 900;
+      margin-bottom: 14px;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+    }
+
+    /* LAYERED CARDS GRID */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+    @media (max-width: 720px) {
+      .cards-grid { grid-template-columns: 1fr; }
+      .hero-title { font-size: 21px; }
+      .hero-stats { width: 100%; }
+    }
+    .layered-card {
+      background: #FFFFFF;
+      border-radius: 20px;
+      padding: 20px;
+      border: 2px solid rgba(255, 255, 255, 0.9);
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.1);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 14px;
+      text-align: right;
+      width: 100%;
+      transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+    }
+    .layered-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--indigo-light);
+      box-shadow: 0 16px 32px rgba(79, 70, 229, 0.2);
+    }
+    .card-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 3px 10px;
+      border-radius: 999px;
+      margin-bottom: 8px;
+    }
+    .b-indigo { background: #EEF2FF; color: #4338CA; }
+    .b-rose { background: #FFF1F2; color: #BE123C; }
+    .b-emerald { background: #ECFDF5; color: #047857; }
+    .b-amber { background: #FFFBEB; color: #B45309; }
+    .b-slate { background: #F1F5F9; color: #334155; }
+    .card-title { font-size: 16px; font-weight: 900; color: #0F172A; margin-bottom: 5px; }
+    .card-desc { font-size: 12.5px; color: #475569; line-height: 1.65; }
+    .card-arrow {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--indigo-soft);
+      color: var(--indigo-dark);
+      font-size: 16px;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 4px;
+    }
+
+    /* PURE WHITE FOUNDER CARD (AT THE VERY BOTTOM — ZERO BLUE BACKGROUND!) */
+    .founder-card {
+      background: #FFFFFF;
+      color: #0F172A;
+      border-radius: 26px;
+      padding: 28px;
+      border: 2px solid var(--indigo-border);
+      box-shadow: 0 16px 38px rgba(15, 23, 42, 0.14);
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+    .founder-photo-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      background: #FFFFFF;
+      padding: 12px;
+      border-radius: 20px;
+      border: 1px solid #E2E8F0;
+      flex-shrink: 0;
+    }
+    .founder-avatar-img {
+      width: 124px;
+      height: 124px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #FFFFFF;
+      border: 4px solid var(--indigo-soft);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+    }
+    .founder-avatar-empty {
+      width: 124px;
+      height: 124px;
+      border-radius: 50%;
+      background: #FFFFFF;
+      border: 3px dashed var(--indigo-light);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: var(--indigo);
+    }
+    .founder-info { flex: 1 1 360px; }
+    .founder-name { font-size: 26px; font-weight: 900; color: #0F172A; margin: 6px 0 4px; }
+    .founder-role { font-size: 14px; font-weight: 800; color: var(--indigo-dark); margin-bottom: 10px; }
+    .founder-bio { font-size: 13.5px; color: #475569; line-height: 1.75; margin-bottom: 14px; }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 9px 18px;
+      border-radius: 12px;
+      background: var(--indigo);
+      color: #FFFFFF;
+      font-size: 12.5px;
+      font-weight: 800;
+      transition: background 0.2s;
+    }
+    .btn-primary:hover { background: var(--indigo-dark); }
+    .btn-soft {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      border-radius: 12px;
+      background: #F8FAFC;
+      border: 1px solid #CBD5E1;
+      color: #334155;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .btn-danger-soft {
+      padding: 8px 12px;
+      border-radius: 11px;
+      background: #FFF1F2;
+      color: #BE123C;
+      border: 1px solid #FECDD3;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    /* SUBPAGE ARTICLE */
+    .subpage-card {
+      background: #FFFFFF;
+      border-radius: 24px;
+      padding: 28px;
+      border: 1px solid #E2E8F0;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.1);
+    }
+    .subpage-title { font-size: 22px; font-weight: 900; color: #0F172A; margin: 10px 0 12px; }
+    .subpage-lead { font-size: 14px; color: #475569; margin-bottom: 20px; line-height: 1.75; }
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+    .info-box {
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 16px;
+      padding: 16px;
+    }
+    .info-box h3 { font-size: 14.5px; font-weight: 800; color: #4338CA; margin-bottom: 6px; }
+    .info-box p, .info-box li { font-size: 12.5px; color: #475569; line-height: 1.65; }
+    .info-box ul { padding-right: 18px; margin-top: 6px; }
+    .step-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 16px;
+      padding: 14px 16px;
+      margin-bottom: 10px;
+    }
+    .step-num {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: var(--indigo);
+      color: #FFFFFF;
+      font-weight: 900;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .inp-field {
+      width: 100%;
+      padding: 9px 12px;
+      border-radius: 11px;
+      border: 1.5px solid #CBD5E1;
+      font-size: 12.5px;
+      background: #FFFFFF;
+      color: #0F172A;
+      outline: none;
+    }
+    .inp-field:focus { border-color: var(--indigo); }
+
+    /* FOOTER */
+    .bottom-footer {
+      background: linear-gradient(135deg, #6366F1 0%, #818CF8 100%);
+      color: #FFFFFF;
+      text-align: center;
+      padding: 11px 16px;
+      font-size: 12px;
+      font-weight: 800;
+      border-top: 1px solid rgba(255, 255, 255, 0.25);
+    }
+
+    /* TOAST */
+    .toast-box {
+      position: fixed;
+      bottom: 22px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      opacity: 0;
+      pointer-events: none;
+      background: #0F172A;
+      color: #FFFFFF;
+      padding: 10px 18px;
+      border-radius: 12px;
+      font-size: 12.5px;
+      font-weight: 700;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+      transition: all 0.25s ease;
+      z-index: 90;
+    }
+    .toast-box.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  </style>
+</head>
+<body>
+
+  <!-- TOP LIGHT INDIGO HEADER -->
+  <header class="top-header">
+    <div class="header-inner">
+      <div class="brand-group">
+        <div class="logos-pair">
+          <img src="data:image/jpeg;base64,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" alt="شعار الجامعة" class="logo-img" />
+          <img src="data:image/jpeg;base64,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" alt="شعار TRUST IN MED" class="logo-img" />
+        </div>
+        <div>
+          <div class="brand-title-row">
+            <span class="brand-title">TRUST IN MED</span>
+            <span class="brand-pill">حول التطبيق • الدفعة 11</span>
+          </div>
+          <p class="brand-sub">المؤسس والمطور: <strong>محمد صادق منيف</strong> • كلية الطب البشري</p>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <a href="https://t.me/Trustin_Med" target="_blank" rel="noopener noreferrer" class="btn-hdr-ghost">قناة تليجرام ↗</a>
+        <button id="hdr-home-btn" type="button" class="btn-hdr-white">الرئيسية</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-wrap">
+    <div id="layered-nav-bar" class="layered-bar hidden"></div>
+    <div id="page-root"></div>
+  </main>
+
+  <footer class="bottom-footer">
+    المؤسس والمطور: محمد صادق منيف • طالب كلية الطب البشري • TRUST IN MED
+  </footer>
+
+  <div id="toast-box" class="toast-box"></div>
+
+  <script>
+    const FOUNDER_PHOTO_KEY = "tim_founder_photo_v1";
+    const PAGE_TITLES = {
+      hub: "حول التطبيق والمؤسس",
+      overview: "عن المنصة ورؤيتها الأكاديمية",
+      audience: "الفئات المستهدفة ونظام الصلاحيات",
+      guide: "دليل الاستخدام الكامل خطوة بخطوة",
+      tech: "المزايا التقنية، الأوفلاين، ونسخة APK",
+      deploy: "مركز الربط والنشر السريع (GitHub • Vercel • Supabase • Netlify)",
+      faq: "الأسئلة الشائعة والدعم الفني"
+    };
+
+    const state = { currentPage: "hub", stack: [], direction: "forward" };
+    let toastTimer = null;
+
+    function showToast(msg) {
+      const el = document.getElementById("toast-box");
+      if (!el) return;
+      el.textContent = msg;
+      el.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => el.classList.remove("show"), 3200);
+    }
+
+    function escapeHtml(str) {
+      return String(str || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+    }
+
+    function getFounderPhoto() {
+      try { return localStorage.getItem(FOUNDER_PHOTO_KEY) || ""; } catch (e) { return ""; }
+    }
+
+    function navigateTo(pageId) {
+      if (state.currentPage === pageId) return;
+      state.stack.push(state.currentPage);
+      state.direction = "forward";
+      state.currentPage = pageId;
+      render();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function navigateBack() {
+      state.currentPage = state.stack.length ? state.stack.pop() : "hub";
+      state.direction = "back";
+      render();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function renderLayeredBar() {
+      const bar = document.getElementById("layered-nav-bar");
+      if (!bar) return;
+      if (state.currentPage === "hub" && !state.stack.length) {
+        bar.classList.add("hidden");
+        bar.innerHTML = "";
+        return;
+      }
+      const prevId = state.stack.length ? state.stack[state.stack.length - 1] : "hub";
+      bar.classList.remove("hidden");
+      bar.innerHTML = `
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+          <button id="btn-nav-back" type="button" class="btn-back"><span>→</span><span>رجوع إلى: ${escapeHtml(PAGE_TITLES[prevId] || "الرئيسية")}</span></button>
+          <div class="crumb-trail">
+            <button type="button" id="btn-crumb-hub" style="font-weight:700;color:#475569;">حول التطبيق</button>
+            <span>‹</span>
+            <strong style="color:#4338CA;">${escapeHtml(PAGE_TITLES[state.currentPage] || "")}</strong>
+          </div>
+        </div>
+        <span class="depth-badge">صفحة ${state.stack.length + 1}</span>
+      `;
+      document.getElementById("btn-nav-back").addEventListener("click", navigateBack);
+      document.getElementById("btn-crumb-hub").addEventListener("click", () => {
+        state.stack = [];
+        state.direction = "back";
+        state.currentPage = "hub";
+        render();
+      });
+    }
+
+    function renderHub() {
+      const photo = getFounderPhoto();
+      const avatarHtml = photo
+        ? `<img src="${photo}" alt="محمد صادق منيف" class="founder-avatar-img" />`
+        : `<div class="founder-avatar-empty"><span style="font-size:38px;font-weight:900;">م</span><span style="font-size:11px;color:#64748B;font-weight:700;">أضف صورتك هنا</span></div>`;
+
+      return `
+        <div>
+          <section class="hero-card">
+            <div class="hero-text">
+              <span class="hero-pill">✨ الدليل الشامل لمنصة TRUST IN MED — الدفعة 11 طب بشري</span>
+              <h1 class="hero-title">كل ما تحتاج معرفته عن منظومة TRUST IN MED الأكاديمية</h1>
+              <p class="hero-desc">
+                منصة طبية تعليمية متكاملة تجمع بين تنظيم <strong>جدول العملي للـ 19 مجموعة</strong>، و<strong>الجداول النظرية (مجموعة A بنات ومجموعة B شباب)</strong>، ومستودع <strong>ملخصات وملفات الدفعة PDF</strong>، والتصدير الرسمي لملفات PDF بصيغة وورد بدون إنترنت — في تطبيق واحد يخدم الجميع حسب صلاحياته.
+              </p>
+            </div>
+            <div class="hero-stats">
+              <div class="stat-box"><div class="stat-num">19</div><div class="stat-lbl">مجموعة عملي</div></div>
+              <div class="stat-box"><div class="stat-num">A / B</div><div class="stat-lbl">النظري بنات/شباب</div></div>
+              <div class="stat-box"><div class="stat-num">100%</div><div class="stat-lbl">PDF رسمي أوفلاين</div></div>
+              <div class="stat-box"><div class="stat-num">4 أدوار</div><div class="stat-lbl">تطبيق واحد للجميع</div></div>
+            </div>
+          </section>
+
+          <h2 class="section-heading">استكشف أقسام «حول التطبيق» (اضغط على أي بطاقة لفتح صفحتها المتداخلة)</h2>
+          <div class="cards-grid">
+            <button type="button" data-go="overview" class="layered-card">
+              <div>
+                <span class="card-badge b-indigo">01 • الرؤية والهدف</span>
+                <div class="card-title">عن التطبيق ولمن أُسّس؟</div>
+                <div class="card-desc">قصة تأسيس المنصة، والمشاكل اليومية التي تحلها لطلبة الطب البشري، وجميع أقسامها ومميزاتها.</div>
+              </div>
+              <span class="card-arrow">←</span>
+            </button>
+
+            <button type="button" data-go="audience" class="layered-card">
+              <div>
+                <span class="card-badge b-rose">02 • الفئات والصلاحيات</span>
+                <div class="card-title">من يستهدف التطبيق؟ (4 أدوار معزولة)</div>
+                <div class="card-desc">تفصيل صلاحيات الطالب، الدكتور، الأدمن، والسوبر أدمن داخل نفس التطبيق الموحّد.</div>
+              </div>
+              <span class="card-arrow">←</span>
+            </button>
+
+            <button type="button" data-go="guide" class="layered-card">
+              <div>
+                <span class="card-badge b-emerald">03 • دليل التشغيل</span>
+                <div class="card-title">كيفية استخدام التطبيق خطوة بخطوة</div>
+                <div class="card-desc">من الدخول بالرمز، إلى إدراج جدول العملي، وتصدير ملف PDF الرسمي وحفظه بالهاتف أوفلاين.</div>
+              </div>
+              <span class="card-arrow">←</span>
+            </button>
+
+            <button type="button" data-go="tech" class="layered-card">
+              <div>
+                <span class="card-badge b-amber">04 • التقنية وAPK</span>
+                <div class="card-title">العمل بدون إنترنت، الأمان، وتحويل APK</div>
+                <div class="card-desc">كيف يعمل محرك PDF الرسمي أوفلاين، والتخزين المحلي IndexedDB، وتغليف APK.</div>
+              </div>
+              <span class="card-arrow">←</span>
+            </button>
+
+            <button type="button" data-go="deploy" class="layered-card" style="border-color:#C7D2FE;">
+              <div>
+                <span class="card-badge b-indigo">05 • النشر السحابي بضغطة زر</span>
+                <div class="card-title" style="color:#4338CA;">ربط GitHub وVercel وSupabase وNetlify</div>
+                <div class="card-desc">مركز ربط فوري لرفع الكود ونشر التطبيق وربط قاعدة البيانات السحابية بضغطة زر.</div>
+              </div>
+              <span class="card-arrow">←</span>
+            </button>
+
+            <button type="button" data-go="faq" class="layered-card">
+              <div>
+                <span class="card-badge b-slate">06 • الأسئلة الشائعة</span>
+                <div class="card-title">الأسئلة الشائعة والدعم الفني</div>
+                <div class="card-desc">إجابات واضحة حول حفظ الـ PDF على الهاتف، حماية الرموز، ومشاركة الملفات للطلاب.</div>
+              </div>
+              <span class="card-arrow">←</span>
+            </button>
+          </div>
+
+          <!-- FOUNDER & DEVELOPER SPOTLIGHT — PURE WHITE BACKGROUND AT THE VERY BOTTOM -->
+          <section class="founder-card">
+            <div class="founder-photo-col">
+              ${avatarHtml}
+              <input id="founder-photo-input" type="file" accept="image/*" style="display:none;" />
+              <div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center;">
+                <button id="founder-photo-upload-btn" type="button" class="btn-primary">📷 ${photo ? "تغيير صورتي" : "رفع صورتي"}</button>
+                ${photo ? `<button id="founder-photo-remove-btn" type="button" class="btn-danger-soft">حذف</button>` : ""}
+              </div>
+            </div>
+            <div class="founder-info">
+              <span class="card-badge b-indigo">🏅 المؤسس والمطور • Founder & Developer</span>
+              <h2 class="founder-name">محمد صادق منيف</h2>
+              <div class="founder-role">طالب كلية الطب البشري • مؤسس ومطور منصة TRUST IN MED</div>
+              <p class="founder-bio">
+                أسّس وطوّر <strong>محمد صادق منيف</strong> (طالب كلية الطب البشري) منصة <strong>TRUST IN MED</strong> لخدمة طلاب وطالبات الدفعة 11 وتطوير بيئة التعليم الطبي الرقمي — بحيث يمتلك كل طالب ودكتور ومندوب أداة عملية سريعة ومجانية لإدارة جداول العملي والنظري، ومكتبة الملازم والملفات PDF، والتصدير الرسمي بدون إنترنت.
+              </p>
+              <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+                <a href="https://t.me/Trustin_Med" target="_blank" rel="noopener noreferrer" class="btn-primary">قناة TRUST IN MED الرسمية ↗</a>
+                <span class="btn-soft">🎓 كلية الطب البشري — الدفعة 11</span>
+              </div>
+            </div>
+          </section>
+        </div>
+      `;
+    }
+
+    function renderOverview() {
+      return `
+        <article class="subpage-card">
+          <span class="card-badge b-indigo">01 • عن التطبيق ورؤيته</span>
+          <h2 class="subpage-title">ما هي منصة TRUST IN MED ولمن أُسّست؟</h2>
+          <p class="subpage-lead">أُسّست منصة <strong>TRUST IN MED</strong> على يد <strong>محمد صادق منيف</strong> (طالب كلية الطب البشري) لإنهاء تشتّت الجداول والملازم بين مجموعات الدردشة، وتوفير نظام موحّد يعمل أوفلاين وأونلاين لكل أفراد الدفعة 11.</p>
+          <div class="info-grid">
+            <div class="info-box"><h3>الجدول الرئيسي الموحّد (19 مجموعة)</h3><p>إدخال سريع للمواد مع تعبئة تلقائية للدكتور والمعمل والوقت وكشف فوري للتعارضات.</p></div>
+            <div class="info-box"><h3>ملخصات وملفات الدفعة (Vault)</h3><p>رفع وتصنيف ملازم ومراجع المواد بصيغة PDF وتنزيلها مباشرة على الهاتف أوفلاين.</p></div>
+            <div class="info-box"><h3>بوابة الطالب والدكتور (محاضرات غداً)</h3><p>عرض مباشر لمحاضرات اليوم والغد حسب مجموعة الطالب العملية (01–19) والنظرية (A/B).</p></div>
+            <div class="info-box"><h3>تصدير PDF رسمي (صيغة وورد)</h3><p>ورقة رسمية بيضاء بإطار أسود وشعار الجامعة وشعار التطبيق — بدون أي ألوان زرقاء أو إنترنت.</p></div>
+          </div>
+          <div style="text-align:left;"><button type="button" data-go="audience" class="btn-primary">التالي: الفئات المستهدفة ←</button></div>
+        </article>
+      `;
+    }
+
+    function renderAudience() {
+      return `
+        <article class="subpage-card">
+          <span class="card-badge b-rose">02 • الفئات المستهدفة</span>
+          <h2 class="subpage-title">تطبيق واحد للجميع — وصلاحيات معزولة لكل فئة</h2>
+          <p class="subpage-lead">ينزّل الجميع نفس التطبيق، ويكتشف رمز الدخول تلقائياً دور المستخدم دون إظهار أي تلميحات أو رموز:</p>
+          <div class="info-grid">
+            <div class="info-box"><h3>1. الطلاب والطالبات (Student)</h3><ul><li>بوابة محاضرات اليوم والغد وجدول العملي للـ 19 مجموعة.</li><li>تنزيل جميع الملازم وملفات الدفعة PDF أوفلاين.</li><li>قراءة وتنزيل فقط — دون صلاحية تعديل أو حذف.</li></ul></div>
+            <div class="info-box"><h3>2. الدكاترة والمحاضرون (Doctor)</h3><ul><li>متابعة محاضراته ومعامله المجدولة.</li><li>رفع محاضراته وملفاته مباشرة للمكتبة وملفات الدفعة.</li><li>مقيد بمجاله الأكاديمي دون إعدادات النظام.</li></ul></div>
+            <div class="info-box"><h3>3. المندوبون والإدارة (Admin)</h3><ul><li>تنظيم وإدخال الجداول وإدارة المعامل والدكاترة.</li><li>تصدير جداول PDF الرسمية وملفات Excel.</li><li>لا يستطيع تغيير الرموز أو تعيين أدمن آخر.</li></ul></div>
+            <div class="info-box"><h3>4. المشرف الأعلى (Super Admin)</h3><ul><li>التحكم الكامل بالتطبيق من أي هاتف برمزه.</li><li>تعيين وتغيير وإخفاء رموز جميع الفئات.</li><li>إدارة الأدمن والمزامنة السحابية والهوية.</li></ul></div>
+          </div>
+          <div style="text-align:left;"><button type="button" data-go="guide" class="btn-primary">التالي: دليل الاستخدام ←</button></div>
+        </article>
+      `;
+    }
+
+    function renderGuide() {
+      const steps = [
+        ["1", "تسجيل الدخول بالرمز الموحد", "أدخل رمزك الخاص (طالب / دكتور / أدمن / سوبر أدمن) ليفتح التطبيق بواجهة صلاحياتك فوراً."],
+        ["2", "إدراج وتنظيم جدول العملي", "اختر المادة لأي مجموعة من (1–19) ليُملأ الدكتور والمعمل والوقت تلقائياً بدون تعارضات."],
+        ["3", "حفظ جدول العملي كملف PDF رسمي أوفلاين", "اضغط «حفظ جدول العملي PDF بالهاتف (أوفلاين)» لمعاينة الصفحات الرسمية بالشعارين وحفظها أو مشاركتها مباشرة بدون إنترنت."],
+        ["4", "تصفح وتحميل ملازم الدفعة (Vault)", "أضف المواد والملازم PDF ليتمكن الطلاب من قراءتها وتنزيلها في أي وقت أوفلاين."],
+        ["5", "إخفاء وقفل الرموز (للسوبر أدمن)", "من الإعدادات اضبط الرموز وفعّل الإخفاء لتختفي تماماً ولا تتغير إلا برمز السوبر أدمن."]
+      ];
+      return `
+        <article class="subpage-card">
+          <span class="card-badge b-emerald">03 • دليل التشغيل</span>
+          <h2 class="subpage-title">كيف يعمل التطبيق خطوة بخطوة؟</h2>
+          ${steps.map(([n, t, d]) => `<div class="step-item"><span class="step-num">${n}</span><div><strong style="font-size:14px;color:#0F172A;">${t}</strong><p style="font-size:12.5px;color:#475569;margin-top:3px;">${d}</p></div></div>`).join("")}
+          <div style="text-align:left;margin-top:16px;"><button type="button" data-go="tech" class="btn-primary">التالي: التقنية وAPK ←</button></div>
+        </article>
+      `;
+    }
+
+    function renderTech() {
+      return `
+        <article class="subpage-card">
+          <span class="card-badge b-amber">04 • التقنية وAPK</span>
+          <h2 class="subpage-title">العمل بدون إنترنت، الأمان، وبناء ملف Android APK</h2>
+          <div class="info-grid">
+            <div class="info-box"><h3>محرك PDF رسمي 100% أوفلاين</h3><p>يولّد ملفات PDF حقيقية متعددة الصفحات بصيغة وورد رسمية وبالشعارين مباشرة داخل الجهاز دون إنترنت.</p></div>
+            <div class="info-box"><h3>تخزين هجين (محلي + سحابي)</h3><p>يستخدم <code>IndexedDB</code> و<code>sw.js</code> للعمل أوفلاين مع مزامنة سحابية عبر GitHub وSupabase.</p></div>
+            <div class="info-box"><h3>حماية مشددة للرموز</h3><p>تختفي جميع الرموز بعد التفعيل ولا تظهر أي تلميحات على شاشة الدخول.</p></div>
+            <div class="info-box"><h3>تغليف APK عبر Capacitor</h3><p>يدعم <code>@capacitor/filesystem</code> و<code>@capacitor/share</code> للحفظ المباشر في <code>Documents/TRUST_IN_MED/</code>.</p></div>
+          </div>
+          <div style="text-align:left;"><button type="button" data-go="deploy" class="btn-primary">التالي: مركز الربط والنشر السريع ←</button></div>
+        </article>
+      `;
+    }
+
+    function renderDeploy() {
+      const savedRepo = localStorage.getItem("tim_deploy_repo_url") || "";
+      const savedSbUrl = localStorage.getItem("tim_supabase_url") || "";
+      const savedSbKey = localStorage.getItem("tim_supabase_anon_key") || "";
+      return `
+        <article class="subpage-card">
+          <span class="card-badge b-indigo">05 • النشر السحابي السريع</span>
+          <h2 class="subpage-title">مركز الربط والنشر بضغطة زر (GitHub • Vercel • Supabase • Netlify)</h2>
+          <p class="subpage-lead">ضع رابط مستودع GitHub الخاص بك مرة واحدة ليمرَّر تلقائياً إلى Vercel وNetlify، واضغط على أي منصة لفتحها مع نسخ الأكواد أو ملفات الإعداد:</p>
+          <div style="background:#EEF2FF;border:1px solid #C7D2FE;border-radius:16px;padding:14px;margin-bottom:18px;">
+            <label style="display:block;font-size:12px;font-weight:800;color:#312E81;margin-bottom:6px;">رابط مستودع GitHub الخاص بتطبيقك:</label>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+              <input id="deploy-repo-input" type="url" dir="ltr" value="${escapeHtml(savedRepo)}" placeholder="https://github.com/username/trust-in-med" class="inp-field" style="flex:1 1 240px;" />
+              <button id="btn-save-repo" type="button" class="btn-primary">حفظ الرابط</button>
+            </div>
+          </div>
+          <div class="info-grid">
+            <div class="info-box">
+              <h3>🚀 GitHub — رفع الكود والمزامنة</h3>
+              <p style="margin-bottom:10px;">افتح إنشاء المستودع أو مستودعك مباشرة لرفع ملفات التطبيق.</p>
+              <button id="btn-go-github" type="button" class="btn-primary" style="width:100%;background:#0F172A;">ربط وفتح GitHub تلقائياً</button>
+            </div>
+            <div class="info-box">
+              <h3>▲ Vercel — نشر فوري سريع</h3>
+              <p style="margin-bottom:10px;">استورد مستودعك وانشره على رابط HTTPS عالمي.</p>
+              <div style="display:flex;gap:8px;">
+                <button id="btn-go-vercel" type="button" class="btn-primary" style="flex:1;">نشر على Vercel</button>
+                <button id="btn-dl-vercel" type="button" class="btn-soft">vercel.json</button>
+              </div>
+            </div>
+            <div class="info-box">
+              <h3>⚡ Supabase — قاعدة البيانات</h3>
+              <input id="sb-url-inp" type="url" dir="ltr" value="${escapeHtml(savedSbUrl)}" placeholder="https://xxxx.supabase.co" class="inp-field" style="margin-bottom:6px;" />
+              <input id="sb-key-inp" type="password" dir="ltr" value="${escapeHtml(savedSbKey)}" placeholder="Supabase Anon Key" class="inp-field" style="margin-bottom:8px;" />
+              <div style="display:flex;gap:8px;">
+                <button id="btn-go-supabase" type="button" class="btn-primary" style="flex:1;background:#059669;">فتح + نسخ SQL</button>
+                <button id="btn-save-sb" type="button" class="btn-soft">حفظ</button>
+              </div>
+            </div>
+            <div class="info-box">
+              <h3>🌐 Netlify — استضافة مباشرة</h3>
+              <p style="margin-bottom:10px;">انشر من GitHub أو بسحب ملف حزمة النشر مباشرة.</p>
+              <div style="display:flex;gap:8px;">
+                <button id="btn-go-netlify" type="button" class="btn-primary" style="flex:1;background:#0D9488;">نشر على Netlify</button>
+                <button id="btn-dl-netlify" type="button" class="btn-soft">netlify.toml</button>
+              </div>
+            </div>
+          </div>
+        </article>
+      `;
+    }
+
+    function renderFaq() {
+      const faqs = [
+        ["هل يعمل التطبيق وتصدير الـ PDF بدون إنترنت؟", "نعم، محرك توليد الـ PDF الرسمي مدمج بالكامل داخل التطبيق ويعمل بدون اتصال، كما تُحفظ الجداول والملازم محلياً."],
+        ["كيف أضيف صورتي في بطاقة المؤسس والمطور؟", "في أسفل الصفحة الرئيسية لـ «حول التطبيق»، اضغط «رفع صورتي» لاختيار صورتك وستُحفظ تلقائياً بخلفية بيضاء نظيفة."],
+        ["هل يستطيع الطلاب تعديل الجدول أو رؤية الرموز؟", "لا، الطالب يرى فقط ما هو مسموح له للقراءة والتنزيل، وتكون جميع الرموز مخفية تماماً."],
+        ["كيف أنشر التطبيق أو أحوله إلى APK؟", "استخدم مركز النشر السريع أعلاه لـ GitHub/Vercel/Netlify أو حزمة Capacitor لبناء APK."]
+      ];
+      return `
+        <article class="subpage-card">
+          <span class="card-badge b-slate">06 • الأسئلة الشائعة</span>
+          <h2 class="subpage-title">الأسئلة الشائعة حول TRUST IN MED</h2>
+          ${faqs.map(([q, a]) => `<div class="info-box" style="margin-bottom:10px;"><h3>${q}</h3><p>${a}</p></div>`).join("")}
+        </article>
+      `;
+    }
+
+    function downloadText(filename, content, mime) {
+      const b = new Blob([content], { type: mime || "text/plain;charset=utf-8" });
+      const u = URL.createObjectURL(b);
+      const a = document.createElement("a");
+      a.href = u; a.download = filename;
+      document.body.appendChild(a); a.click();
+      setTimeout(() => { try { document.body.removeChild(a); URL.revokeObjectURL(u); } catch (e) {} }, 350);
+    }
+
+    function bindEvents() {
+      document.querySelectorAll("[data-go]").forEach(btn => {
+        btn.addEventListener("click", () => navigateTo(btn.getAttribute("data-go")));
+      });
+      const uploadBtn = document.getElementById("founder-photo-upload-btn");
+      const fileInp = document.getElementById("founder-photo-input");
+      const removeBtn = document.getElementById("founder-photo-remove-btn");
+      if (uploadBtn && fileInp) {
+        uploadBtn.addEventListener("click", () => fileInp.click());
+        fileInp.addEventListener("change", (e) => {
+          const file = e.target.files && e.target.files[0];
+          if (!file) return;
+          const reader = new FileReader();
+          reader.onload = () => {
+            const img = new Image();
+            img.onload = () => {
+              const size = 400;
+              const c = document.createElement("canvas");
+              c.width = size; c.height = size;
+              const ctx = c.getContext("2d");
+              ctx.fillStyle = "#FFFFFF";
+              ctx.fillRect(0, 0, size, size);
+              const m = Math.min(img.width, img.height);
+              ctx.drawImage(img, (img.width - m) / 2, (img.height - m) / 2, m, m, 0, 0, size, size);
+              try {
+                localStorage.setItem(FOUNDER_PHOTO_KEY, c.toDataURL("image/jpeg", 0.9));
+                showToast("✓ تم حفظ صورتك الشخصية بنجاح بخلفية بيضاء");
+                render();
+              } catch (err) { showToast("تعذر حفظ الصورة محلياً."); }
+            };
+            img.src = reader.result;
+          };
+          reader.readAsDataURL(file);
+        });
+      }
+      if (removeBtn) removeBtn.addEventListener("click", () => {
+        try { localStorage.removeItem(FOUNDER_PHOTO_KEY); } catch (e) {}
+        showToast("تمت إزالة الصورة الشخصية.");
+        render();
+      });
+
+      const repoInp = document.getElementById("deploy-repo-input");
+      const btnSaveRepo = document.getElementById("btn-save-repo");
+      if (btnSaveRepo && repoInp) btnSaveRepo.addEventListener("click", () => {
+        try { localStorage.setItem("tim_deploy_repo_url", repoInp.value.trim()); } catch (e) {}
+        showToast("✓ تم حفظ رابط مستودع GitHub");
+      });
+      const btnGh = document.getElementById("btn-go-github");
+      if (btnGh) btnGh.addEventListener("click", () => {
+        const r = (repoInp && repoInp.value.trim()) || localStorage.getItem("tim_deploy_repo_url") || "";
+        window.open(r || "https://github.com/new?name=trust-in-med&description=TRUST+IN+MED+Academic+Platform", "_blank", "noopener,noreferrer");
+      });
+      const btnVercel = document.getElementById("btn-go-vercel");
+      if (btnVercel) btnVercel.addEventListener("click", () => {
+        const r = (repoInp && repoInp.value.trim()) || localStorage.getItem("tim_deploy_repo_url") || "";
+        window.open(r ? "https://vercel.com/new/clone?repository-url=" + encodeURIComponent(r) : "https://vercel.com/new", "_blank", "noopener,noreferrer");
+      });
+      const btnDlVercel = document.getElementById("btn-dl-vercel");
+      if (btnDlVercel) btnDlVercel.addEventListener("click", () => {
+        downloadText("vercel.json", JSON.stringify({ cleanUrls: true, rewrites: [{ source: "/(.*)", destination: "/index.html" }] }, null, 2), "application/json");
+        showToast("✓ تم تنزيل vercel.json");
+      });
+      const btnSb = document.getElementById("btn-go-supabase");
+      if (btnSb) btnSb.addEventListener("click", () => {
+        const sql = "-- TRUST IN MED Supabase Schema\ncreate table if not exists public.tim_sync_state (\n  id text primary key,\n  payload jsonb not null,\n  updated_at timestamptz default now()\n);\nalter table public.tim_sync_state enable row level security;\ncreate policy \"Allow read\" on public.tim_sync_state for select using (true);\ncreate policy \"Allow write\" on public.tim_sync_state for all using (true);\n";
+        try { navigator.clipboard.writeText(sql); } catch (e) {}
+        showToast("✓ تم نسخ كود SQL وفتح Supabase");
+        window.open("https://supabase.com/dashboard/projects", "_blank", "noopener,noreferrer");
+      });
+      const btnSaveSb = document.getElementById("btn-save-sb");
+      if (btnSaveSb) btnSaveSb.addEventListener("click", () => {
+        try {
+          localStorage.setItem("tim_supabase_url", (document.getElementById("sb-url-inp") || {}).value.trim());
+          localStorage.setItem("tim_supabase_anon_key", (document.getElementById("sb-key-inp") || {}).value.trim());
+          showToast("✓ تم حفظ مفاتيح ربط Supabase");
+        } catch (e) {}
+      });
+      const btnNl = document.getElementById("btn-go-netlify");
+      if (btnNl) btnNl.addEventListener("click", () => {
+        const r = (repoInp && repoInp.value.trim()) || localStorage.getItem("tim_deploy_repo_url") || "";
+        window.open(r ? "https://app.netlify.com/start/deploy?repository=" + encodeURIComponent(r) : "https://app.netlify.com/drop", "_blank", "noopener,noreferrer");
+      });
+      const btnDlNl = document.getElementById("btn-dl-netlify");
+      if (btnDlNl) btnDlNl.addEventListener("click", () => {
+        downloadText("netlify.toml", '[build]\n  publish = "."\n\n[[redirects]]\n  from = "/*"\n  to = "/index.html"\n  status = 200\n', "text/plain");
+        showToast("✓ تم تنزيل netlify.toml");
+      });
+    }
+
+    function render() {
+      renderLayeredBar();
+      const root = document.getElementById("page-root");
+      if (state.currentPage === "hub") root.innerHTML = renderHub();
+      else if (state.currentPage === "overview") root.innerHTML = renderOverview();
+      else if (state.currentPage === "audience") root.innerHTML = renderAudience();
+      else if (state.currentPage === "guide") root.innerHTML = renderGuide();
+      else if (state.currentPage === "tech") root.innerHTML = renderTech();
+      else if (state.currentPage === "deploy") root.innerHTML = renderDeploy();
+      else if (state.currentPage === "faq") root.innerHTML = renderFaq();
+
+      root.classList.remove("enter-forward", "enter-back");
+      void root.offsetWidth;
+      root.classList.add(state.direction === "back" ? "enter-back" : "enter-forward");
+      bindEvents();
+    }
+
+    document.getElementById("hdr-home-btn").addEventListener("click", () => {
+      state.stack = [];
+      state.direction = "back";
+      state.currentPage = "hub";
+      render();
+    });
+
+    render();
+  </script>
+</body>
+</html>

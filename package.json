@@ -1,0 +1,22 @@
+{
+  "name": "trust-in-med",
+  "version": "3.6.0",
+  "description": "TRUST IN MED Complete Medical Academic Management Platform (Web + Offline Android APK)",
+  "author": "Mohammed Munif",
+  "scripts": {
+    "prepare:vendor": "mkdir -p www/vendor && cp node_modules/jspdf/dist/jspdf.umd.min.js www/vendor/ && cp node_modules/html2canvas/dist/html2canvas.min.js www/vendor/",
+    "apk:sync": "npm run prepare:vendor && npx cap sync android",
+    "apk:open": "npx cap open android"
+  },
+  "dependencies": {
+    "@capacitor/core": "^6.1.0",
+    "@capacitor/android": "^6.1.0",
+    "@capacitor/filesystem": "^6.0.0",
+    "@capacitor/share": "^6.0.0",
+    "jspdf": "^2.5.1",
+    "html2canvas": "^1.4.1"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^6.1.0"
+  }
+}

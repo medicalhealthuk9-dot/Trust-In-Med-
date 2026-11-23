@@ -1,0 +1,9 @@
+{
+  "appId": "com.trustinmed.academic",
+  "appName": "TRUST IN MED",
+  "webDir": "www",
+  "bundledWebRuntime": false,
+  "android": {
+    "allowMixedContent": true
+  }
+}
