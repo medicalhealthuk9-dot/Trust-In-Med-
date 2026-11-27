@@ -814,7 +814,7 @@ alter publication supabase_realtime add table public.tim_workspace_state;`;
 
   const ui = {
     activeView: "master-schedule",
-    role: "Representative",
+    role: "Student",
     masterMode: "cards", // 'cards' (ultra-clean smart cards) | 'inline' (direct dropdowns) | 'matrix' (time x groups)
     filterDay: "ALL",
     searchQuery: "",
@@ -2761,7 +2761,7 @@ alter publication supabase_realtime add table public.tim_workspace_state;`;
 
     // Settings
     document.querySelectorAll("[data-action='set-role']").forEach(btn => {
-      btn.addEventListener("click", () => { ui.role = btn.dataset.role; renderApp(); showToast("تم التبديل إلى صلاحية: " + ui.role, "info"); });
+      btn.addEventListener("click", () => { if (ui.role === "Student" || ui.role === "Doctor") { showToast("تبديل الصلاحية يتطلب رمز الدخول المناسب.", "error"); return; } ui.role = btn.dataset.role; renderApp(); showToast("تم التبديل إلى صلاحية: " + ui.role, "info"); });
     });
 
     const sbForm = document.getElementById("supabase-cfg-form");
@@ -2968,7 +2968,7 @@ alter publication supabase_realtime add table public.tim_workspace_state;`;
         { id: "acc_doc1", name: "د. خلدون الخالدي", email: "khaldoon@trustinmed.local", role: "Doctor", active: true, linkedDoctor: "د. خلدون الخالدي", linkedStudentId: "" },
         { id: "acc_stu1", name: "طالب دفعة 11", email: "student11@trustinmed.local", role: "Student", active: true, linkedDoctor: "", linkedStudentId: "" }
       ],
-      activeAccountId: "acc_rep",
+      activeAccountId: "acc_stu1",
       hallsAndSites: [
         { id: "hall_main_a", name: "المدرج الرئيسي (A)", type: "Hall", floor: "First Floor – الدور الأول", capacity: null, allowedActivities: ["Theoretical Lectures", "Revision Sessions", "Exams"], availability: "Saturday–Thursday 08:00 AM–03:30 PM", status: "Active" },
         { id: "hall_main_b", name: "المدرج الرئيسي (B)", type: "Hall", floor: "First Floor – الدور الأول", capacity: null, allowedActivities: ["Theoretical Lectures", "Seminars", "Exams"], availability: "Saturday–Thursday 08:00 AM–03:30 PM", status: "Active" },
@@ -7048,6 +7048,9 @@ create policy "Vault write" on public.tim_vault_files for all using (true) with 
         lockedAndHidden: false
       };
     }
+    if (extState.prodSecurity.lockedAndHidden && !extState.prodSecurity.superAdminCode && !extState.prodSecurity.adminCode && !extState.prodSecurity.doctorCode && !extState.prodSecurity.studentCode) {
+      extState.prodSecurity.lockedAndHidden = false;
+    }
   }
   ensureProdCodes();
 
@@ -7080,13 +7083,14 @@ create policy "Vault write" on public.tim_vault_files for all using (true) with 
       "Super Admin": null,
       "Admin": ["master-schedule", "quick-entry", "progress", "dashboard", "labs", "doctors", "print-export", "batch-vault", "all-schedules", "library", "students", "coordination", "reports", "about"],
       "Doctor": ["doctor-portal", "master-schedule", "batch-vault", "library", "print-export", "about"],
+      "Representative": ["master-schedule", "quick-entry", "progress", "dashboard", "labs", "doctors", "print-export", "batch-vault", "all-schedules", "library", "students", "coordination", "reports", "about"],
       "Student": ["student-portal", "master-schedule", "progress", "batch-vault", "library", "print-export", "about"]
     };
-    const allowed = allowedByRole[ui.role];
-    if (!allowed) {
+    if (ui.role === "Super Admin") {
       document.querySelectorAll(".nav-btn").forEach(btn => btn.classList.remove("hidden"));
       return;
     }
+    const allowed = allowedByRole[ui.role] || allowedByRole["Student"];
     document.querySelectorAll(".nav-btn").forEach(btn => {
       const v = btn.getAttribute("data-view");
       if (v === "settings" && !locked) { btn.classList.remove("hidden"); return; }
@@ -7098,8 +7102,8 @@ create policy "Vault write" on public.tim_vault_files for all using (true) with 
     ensureProdCodes();
     const ps = extState.prodSecurity;
 
-    // Non-SuperAdmin while locked -> strictly blocked with Super Admin code entry only
-    if (ps.lockedAndHidden && ui.role !== "Super Admin") {
+    // Non-SuperAdmin while locked (or whenever codes are already set) -> strictly blocked with Super Admin code entry only
+    if ((ps.lockedAndHidden || ps.superAdminCode) && ui.role !== "Super Admin") {
       return `
         <div class="tim-gloss-card rounded-2xl border-2 border-rose-400 p-6 max-w-lg mx-auto text-center space-y-3">
           <div class="text-3xl">🔒</div>
@@ -8447,7 +8451,7 @@ create policy "Vault write" on public.tim_vault_files for all using (true) with 
     else if (ui.activeView === "progress") container.innerHTML = renderProgressView();
     else if (ui.activeView === "print-export") container.innerHTML = renderPrintExportView();
     else if (ui.activeView === "settings") {
-      if (extState.prodSecurity && extState.prodSecurity.lockedAndHidden && ui.role !== "Super Admin") {
+      if (ui.role === "Student" || ui.role === "Doctor" || (extState.prodSecurity && extState.prodSecurity.lockedAndHidden && ui.role !== "Super Admin")) {
         container.innerHTML = renderProdSecurityCard();
       } else {
         container.innerHTML = renderProdSecurityCard() + renderGithubSyncCard() + renderSettingsView() + renderGlobalSettingsControlCenter();
