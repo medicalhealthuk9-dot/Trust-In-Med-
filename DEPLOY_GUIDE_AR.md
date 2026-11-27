@@ -9,8 +9,10 @@
 ## 2. السيرفر وقاعدة البيانات السحابية (Supabase)
 1. أنشئ مشروعاً مجانياً على [Supabase](https://supabase.com/).
 2. من **SQL Editor** الصق محتوى ملف `supabase_schema.sql` واضغط **Run**.
-3. من **Storage** أنشئ Bucket جديد باسم `trustinmed-vault` واجعله **Public**.
+3. من **Storage** أنشئ Bucket جديد باسم `trustinmed-vault` واجعله **Public للقراءة فقط**، وأضف سياسات Storage تمنع الرفع والحذف إلا للمستخدمين المسجلين — لا تجعل الكتابة عامة أبداً.
 4. انسخ `Project URL` و`Anon Public Key` من **Project Settings → API** وأدخلهما داخل صفحة **الإعدادات والمزامنة** في تطبيق TRUST IN MED.
+
+> **تنبيه أمني (إصلاح 2026-11-28):** سياسات RLS في `supabase_schema.sql` كانت تسمح لأي شخص على الإنترنت بالكتابة والحذف بدون تسجيل دخول (`using (true)`). النسخة المصححة تشترط تسجيل الدخول للقراءة والكتابة. لا ترجع للسياسات العامة أبداً، ولا تضع مفتاح `service_role` في أي ملف عميل.
 
 ## 3. تحويل التطبيق إلى Android APK و AAB للنشر في Google Play Store
 1. ثبّت [Node.js](https://nodejs.org/) و[Android Studio](https://developer.android.com/studio).
